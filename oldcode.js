@@ -27,12 +27,25 @@ app.get('/users', (req, res) => {
         password: 'pass'
     }]);
 
+    // let name = 'mm';
+    // let email = 'mm@';
+    // let password = 'qwert';
+    
+    // const user = new User({
+    //     name: name,
+    //     email: email,
+    //     password: password
+    // });
+    // user.save();
     res.send('hello')
 });
 
 app.post('/users', (req, res) => {
     console.log('post hit')
     console.log(req.body)
+    // let name = req.body.name;
+    // let email = req.body.email;
+    // let password = req.body.password;
     
     
     const user = new User({
@@ -40,8 +53,18 @@ app.post('/users', (req, res) => {
         email: req.body.email,
         password: req.body.password
     });
-
-    user.save().catch((err) => {
+    user.save(
+    //     () => {
+    //     try {
+    //         res.send({
+    //             success:true,
+    //             message:'user successfully added'
+    //         })
+    //     } catch (e) {
+    //         console.log(e)
+    //     }
+    // }
+    ).catch((err) => {
         console.log(err)
     });
 
@@ -51,3 +74,20 @@ app.post('/users', (req, res) => {
 app.listen(port, () => {
     console.log('server party');
 });
+
+
+
+// const user = new User({
+//     name:'Maximilian',
+//     email:'maximilian@mail.com',
+//     password:'mySuperSecretPassword'
+// });
+
+// // user.save();
+// // users.find(user.name);
+
+// User.find({}, (e, docs) => {
+//     if(e) throw e
+
+//     console.log(docs)
+// })
