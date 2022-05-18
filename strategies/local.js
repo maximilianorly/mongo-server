@@ -1,11 +1,11 @@
 const LocalStrategy = require("passport-local");
 const passport = require("passport");
-const User = require('../models/user');
+const User = require('../database/models/user');
 const bcrypt = require("bcrypt");
 
 passport.serializeUser((user, done) => {
     console.log("serialising");
-    console.log(user);
+    console.log(typeof user._id);
     done(null, user._id);
 });
 
@@ -29,8 +29,8 @@ passport.use(new LocalStrategy(
         try {
             const result = await User.findOne({ username: `${username}` });
             
-            console.log(`comparing ${password} to ${result.password}`);
             if (result !== null) {
+                console.log(`comparing ${password} to ${result.password}`);
                 if (await bcrypt.compare(password, result.password)) {
                     console.log("match");
                     done(null, result);
@@ -39,6 +39,7 @@ passport.use(new LocalStrategy(
                     done(null, false);
                 }
             } else {
+                console.log("no user found");
                 done(null, false);
             }
         } catch(err) {
